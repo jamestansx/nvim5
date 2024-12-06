@@ -21,6 +21,8 @@ augroup("global", { clear = true })
 --- [options] ---
 opt.breakindent = true
 opt.confirm = true
+opt.cursorline = true
+opt.cursorlineopt = "number"
 opt.expandtab = true
 opt.exrc = true
 opt.hlsearch = false
@@ -38,7 +40,7 @@ opt.shiftwidth = 4
 opt.shortmess:append("IcAa")
 opt.showcmd = false
 opt.showmode = false
-opt.signcolumn = "number"
+opt.signcolumn = "yes:1"
 opt.splitbelow = true
 opt.splitright = true
 opt.tabstop = 4
@@ -169,5 +171,4 @@ end
 --- [plugins] ---
 vim.cmd([[packadd! cfilter]])
 vim.cmd([[packadd! termdebug]])
-
-vim.cmd.colorscheme("retrobox")
+vim.cmd([[colorscheme retrobox]])
