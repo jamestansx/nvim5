@@ -66,11 +66,11 @@ opt.smartcase = true
 
 opt.list = true
 opt.listchars = {
-    extends = "🠞",  -- U+1F81E
-    nbsp = "⦸",     -- U+29B8
-    precedes = "🠜", -- U+1F81C
-    tab = "▸ ",     -- U+25B8
-    trail = "·",    -- U+00B7
+    extends  = "🠞",  -- U+1F81E
+    nbsp     = "⦸",  -- U+29B8
+    precedes = "🠜",  -- U+1F81C
+    tab      = "▸ ", -- U+25B8
+    trail    = "·",  -- U+00B7
 }
 
 opt.diffopt:append({
