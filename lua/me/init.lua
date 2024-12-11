@@ -40,6 +40,8 @@ opt.shiftwidth = 4
 opt.shortmess:append("IcAa")
 opt.showcmd = false
 opt.showmode = false
+opt.sidescroll = 3
+opt.sidescrolloff = 3
 opt.signcolumn = "yes:1"
 opt.splitbelow = true
 opt.splitright = true
