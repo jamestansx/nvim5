@@ -171,6 +171,30 @@ do -- https://github.com/mhinz/vim-galore#saner-command-line-history
 end
 
 --- [plugins] ---
-vim.cmd([[packadd! cfilter]])
-vim.cmd([[packadd! termdebug]])
-vim.cmd([[colorscheme retrobox]])
+do -- bootstrap mini.deps
+    local mini_path = string.format(
+        "%s/site/pack/deps/start/mini.deps",
+        vim.fn.stdpath("data")
+    )
+
+    if not vim.uv.fs_stat(mini_path) then
+        vim.system({
+            "git", "clone", "--filter=blob:none",
+            "https://github.com/echasnovski/mini.deps", mini_path,
+        }):wait()
+        vim.cmd("packadd mini.deps | helptags ALL")
+    end
+end
+
+require("mini.deps").setup({})
+local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+
+-- luarocks support
+local rocks = require("me.luarocks")
+now(rocks.setup)
+
+now(function()
+    vim.cmd("packadd! cfilter")
+    vim.cmd("packadd! termdebug")
+    vim.cmd("colorscheme lunaperche")
+end)
