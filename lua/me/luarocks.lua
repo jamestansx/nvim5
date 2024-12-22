@@ -2,6 +2,23 @@ local M = {}
 
 local rocks_path = string.format("%s/site/pack/luarocks", vim.fn.stdpath("data"))
 
+do -- setup luarocks path
+    local path = string.format("%s/share/lua/5.1", rocks_path)
+    local cpath = string.format("%s/lib/lua/5.1", rocks_path)
+
+    package.path = table.concat({
+        package.path,
+        string.format("%s/?.lua", path),
+        string.format("%s/?/init.lua", path),
+    }, ";")
+
+    package.cpath = table.concat({
+        package.cpath,
+        string.format("%s/?.lua", cpath),
+        string.format("%s/?/init.lua", cpath),
+    }, ";")
+end
+
 function M.add(spec, opts)
     local inject_luarocks = function(fn)
         return function(args)
@@ -32,20 +49,13 @@ function M.install(args)
     end, { path = args.path, type = "file", limit = 1 })[1]
 
     if rockspec == nil then
-        error(
-            string.format(
-                "[Luarocks] %s: Rockspec is missing",
-                args.source
-            )
-        )
+        error(string.format("[Luarocks] %s: Rockspec is missing", args.source))
     end
 
     vim.notify("[Luarocks] Installing dependencies")
     local obj = vim.system({
-        "luarocks",
-        "--tree", rocks_path,
-        "install",
-        "--deps-only",
+        "luarocks", "--tree", rocks_path,
+        "install", "--deps-only",
         "--lua-version", "5.1",
         "--deps-mode", "one",
         rockspec,
@@ -61,23 +71,6 @@ function M.install(args)
             )
         )
     end
-end
-
-function M.setup()
-    local path = string.format("%s/share/lua/5.1", rocks_path)
-    local cpath = string.format("%s/lib/lua/5.1", rocks_path)
-
-    package.path = table.concat({
-        package.path,
-        string.format("%s/?.lua", path),
-        string.format("%s/?/init.lua", path),
-    }, ";")
-
-    package.cpath = table.concat({
-        package.cpath,
-        string.format("%s/?.lua", cpath),
-        string.format("%s/?/init.lua", cpath),
-    }, ";")
 end
 
 return M

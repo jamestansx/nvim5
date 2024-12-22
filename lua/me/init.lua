@@ -191,7 +191,6 @@ local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 -- luarocks support
 local rocks = require("me.luarocks")
-now(rocks.setup)
 
 now(function()
     vim.cmd("packadd! cfilter")
